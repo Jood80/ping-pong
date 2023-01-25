@@ -3,7 +3,9 @@ import {io} from 'socket.io-client'
 // Canvas Related 
 const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
-const socket = io("http://localhost:3000")
+const socket = io("http://localhost:3000", {
+  withCredentials: true,
+})
 
 
 socket.on("connect", () => {
