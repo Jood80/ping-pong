@@ -11,15 +11,16 @@ const io = new Server(httpServer, {
   }
 })
 
+let playersCount = 0
 io.on('connection', (socket) => {
 	console.log(`User ${socket.id} is connected`);
-	let playersCount = 0
 
-	playersCount++
-
-	io.emit('ready', () => {
+	
+	socket.on('ready', () => {
 		console.log(`player ${ socket.id } is ready`);
 		
+		playersCount++
+
 		if(playersCount === 2) {
 			io.emit('startGame', socket.id)
 		}
