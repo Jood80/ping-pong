@@ -12,8 +12,18 @@ const io = new Server(httpServer, {
 })
 
 io.on('connection', (socket) => {
-	console.log(socket);
-	console.log("has connected successfully");
+	console.log(`User ${socket.id} is connected`);
+	let playersCount = 0
+
+	playersCount++
+
+	io.emit('ready', () => {
+		console.log(`player ${ socket.id } is ready`);
+		
+		if(playersCount === 2) {
+			io.emit('startGame', socket.id)
+		}
+	})
 })
 
 httpServer.listen(3000, () => console.log("listening on port 3000"))

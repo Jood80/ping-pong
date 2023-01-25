@@ -7,16 +7,9 @@ const socket = io("http://localhost:3000", {
   withCredentials: true,
 })
 
-
-socket.on("connect", () => {
-  console.log(socket.id); // 
-});
-
-socket.emit("reply");
-socket.emit("ready");
-
+let isReferee = false;
 let paddleIndex = 0;
-console.log(socket);
+
 let width = 500;
 let height = 700;
 
@@ -174,12 +167,15 @@ function animate() {
   window.requestAnimationFrame(animate);
 }
 
-// Start Game, Reset Everything
-function startGame() {
+// Load Game, Reset Everything
+function loadGame () {
   createCanvas();
   renderIntro();
-  
-  paddleIndex = 0;
+  socket.emit('ready')
+}
+
+function startGame(){   
+  paddleIndex = isReferee? 0 : 1;
   window.requestAnimationFrame(animate);
   canvas.addEventListener('mousemove', (e) => {
     playerMoved = true;
@@ -196,5 +192,15 @@ function startGame() {
 }
 
 // On Load
-startGame();
+loadGame();
 
+socket.on("connect", () => {
+  console.log(socket.id,"is connected"); // 
+});
+
+socket.on("startGame", refereeId => {
+  console.log('Referee is', refereeId);
+
+  isReferee = socket.id === refereeId;
+  startGame()
+})
