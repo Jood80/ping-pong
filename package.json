@@ -1,0 +1,22 @@
+{
+  "name": "ping-pong",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jood80/ping-pong.git"
+  },
+  "keywords": [
+    "socket.io"
+  ],
+  "author": "Nujood",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jood80/ping-pong/issues"
+  },
+  "homepage": "https://github.com/Jood80/ping-pong#readme"
+}
