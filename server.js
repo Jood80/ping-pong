@@ -25,6 +25,10 @@ io.on('connection', (socket) => {
 			io.emit('startGame', socket.id)
 		}
 	})
+
+	socket.on('paddleMove', (paddleData) => {
+		socket.broadcast.emit('paddleMove', paddleData)
+	})
 })
 
 httpServer.listen(3000, () => console.log("listening on port 3000"))
